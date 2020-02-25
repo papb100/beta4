@@ -180,6 +180,9 @@
     <!-- Modal de datos -->
         <?php include'modalDatos.php'; ?>
     <!-- Modal de datos -->
+    <!-- Modal de datos -->
+        <?php include'modalPDF.php'; ?>
+    <!-- Modal de datos -->
 
     <!-- jQuery -->
     <script src="../plugins/jQuery/jquery-3.3.1.js"></script>   
@@ -203,10 +206,10 @@
     <script type="text/javascript" src="../plugins/dataTableButtons/buttons.print.min.js"></script>
     <!-- Bootstrap Switch Button -->
     <script type="text/javascript" src="../plugins/bootstrap4-toggle-master/js/bootstrap4-toggle.min.js"></script>
+    <!-- pdfObject -->
+    <script type="text/javascript" src="../plugins/PDFObject-master/pdfobject.min.js"></script>
     <script>
         llenar_lista1();
     </script>
-
-
 </body>
 </html>

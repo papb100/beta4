@@ -153,12 +153,14 @@ function cambiar_estatus(id,consecutivo){
                 alertify.success("<i class='fa fa-check fa-lg'></i>", 2);
                 $("#btnEditar"+consecutivo).removeAttr('disabled');
                 $("#btnImprimir"+consecutivo).removeAttr('disabled');
-                log("Usuario activo registro");
+                $("#btnModal"+consecutivo).removeAttr('disabled');
+                //log("Usuario activo registro");
             }else{
                 alertify.error("<i class='fa fa-times fa-lg'></i>", 2);
                 $("#btnEditar"+consecutivo).attr('disabled','disabled');
                 $("#btnImprimir"+consecutivo).attr('disabled','disabled');
-                log("Usuario desactivo registro");
+                $("#btnModal"+consecutivo).attr('disabled','disabled');
+                //log("Usuario desactivo registro");
             }
         },
         error:function(xhr,status){
@@ -182,7 +184,17 @@ function abrirModalDatos(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp) {
     $("#modalDatos").modal("show");
 }
 
-function cambioColor(duracion , colorF , mensaje , colorL="#fff"){
+//Variables globales
+var blanco   = "#ffffff";
+var negro    = "#000000";
+var obscuro  = "#343A40";
+var azul     = "#1278F4";
+var verde    = "#2AA44E";
+var rojo     = "#D9304B";
+var amarillo = "#FFC107";
+var celeste  = "#17A2B8";
+
+function cambioColor(duracion , colorF , mensaje , colorL=blanco){
     //color azul
     $(".jumbotron , .hTabla").css({
         transition : 'background-color'+ duracion +' ease-in-out',
@@ -211,48 +223,52 @@ $("#btnCancelar").click(function(){
     $("#editar").hide();
     $("#Listado1").show();
     $("#guardar").show();
-    //color azul
-    cambioColor('.5s' , '#1278F4' , "Captura de Información",'#000')
+    cambioColor('.5s' , azul , "Captura de Información",negro)
 });
 
 $("#btnCancelar").mouseover(function(){
-    //color rojo
-    cambioColor('.5s' , '#D9304B' , 'Cancelar edición de datos')
+    cambioColor('.5s' , rojo , 'Cancelar edición de datos')
 });
 
 $("#btnActualizar").mouseover(function(){
-    //color verde
-    cambioColor('.5s' , '#2AA44E' , 'Actualizar datos personales')
+    cambioColor('.5s' , verde , 'Actualizar datos personales')
 });
 
 $("#btnGuardar").mouseover(function(){
-    //color verde
-    cambioColor('.5s' , '#343A40' , 'Actualizar datos personales','#fff')
+    cambioColor('.5s' , obscuro , 'Actualizar datos personales',blanco)
 });
 
 $("#btnActualizar , #btnCancelar , #btnGuardar").mouseout(function(){
-    //color azul
-    cambioColor('.5s' , '#1278F4' , 'Actualizar de Información')
+    cambioColor('.5s' , verde , 'Actualizar de Información')
 });
 
 function mov_lista(){
     $(".imprimir").mouseover(function(){
-        //color celeste
-        cambioColor('.5s' , '#FFC107' , 'Imprimir datos personales','#000')
+        if ($(this).is('[disabled]')) {
+            cambioColor('.5s' , rojo , 'Imprimir datos personales','#fff')
+        }else{
+            cambioColor('.5s' , amarillo , 'Imprimir datos personales','#000')
+        }
+        
     });
     
     $(".editar").mouseover(function(){
-        //color verde
-        cambioColor('.5s' , '#2AA44E' , 'Editar datos personales')
+        if ($(this).is('[disabled]')) {
+            cambioColor('.5s' , rojo , 'Editar datos personales')
+        }else{
+            cambioColor('.5s' , verde , 'Editar datos personales')
+        }
     });
 
     $(".ventana").mouseover(function(){
-        //color verde
-        cambioColor('.5s' , '#17A2B8' , 'Editar datos personales')
+        if ($(this).is('[disabled]')) {
+            cambioColor('.5s' , rojo , 'Mostrar ventana modal')
+        }else{
+            cambioColor('.5s' , celeste , 'Mostrar ventana modal')
+        }
     });
     
     $(".imprimir , .editar , .ventana").mouseout(function(){
-        //color azul
         cambioColor('.5s' , '#1278F4' , 'Captura de Información')
     });
 }
@@ -272,4 +288,16 @@ function log(actividad){
         },
     });
    
+}
+
+
+function abrirModalPDF(id) {
+
+    $("#txtTitularPDF").text("Datos Personales")
+
+    var link = "pdfDatos.php?id="+id ;
+    PDFObject.embed(link, "#visualizador");
+
+    $("#modalPDF").modal("show");
+
 }

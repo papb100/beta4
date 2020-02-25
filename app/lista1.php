@@ -2,7 +2,6 @@
 // Conexion SQL SERVER
 include'../conexiones/conexionli.php';
 
-
 date_default_timezone_set('America/Monterrey');
 
 //Set charset a cadena de conexion
@@ -80,12 +79,12 @@ $consultar = mysqli_query($conexionLi, $cadena);
                                 <i class="far fa-edit fa-lg"></i>
                     </button>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="imprimir btn btn-outline-warning fa-1x activo" id="btnImprimir<?php echo $n?>" onclick="imprimir_datos('<?php echo $id?>')">
+                    <button <?php echo $dtnDesabilita?> type="button" class="imprimir btn btn-outline-warning fa-1x activo" id="btnImprimir<?php echo $n?>" onclick="abrirModalPDF('<?php echo $id?>')">
                                 <i class="fas fa-print fa-lg"></i>
                     </button>
                 </td>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info fa-1x activo"  onclick="abrirModalDatos('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>')">
+                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info fa-1x activo"  id="btnModal<?php echo $n?>" onclick="abrirModalDatos('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>')">
                         <i class="far fa-window-maximize fa-lg"></i>
                     </button>
                 </td>
