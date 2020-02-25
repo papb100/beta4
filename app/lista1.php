@@ -20,7 +20,6 @@ $cadena = "SELECT
                 edad,
                 correo,
                 curp
-                
             FROM
                 datos ORDER BY id DESC";
 $consultar = mysqli_query($conexionLi, $cadena);
@@ -35,6 +34,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                 <th scope="col">#</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Imprimir</th>
+                <th scope="col">Datos</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Ap. Paterno</th>
                 <th scope="col">Ap. Materno</th>
@@ -49,7 +49,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
         $n=1;
         while( $row = mysqli_fetch_array($consultar) ) {
 
-            $id                = $row[0];
+            $id          = $row[0];
 
             if ($row[1] == 1) {
                 $chkChecado    = "checked";
@@ -61,13 +61,13 @@ $consultar = mysqli_query($conexionLi, $cadena);
                 $chkValor      = "0";
             }
 
-            $nombre            = $row[2];
-            $paterno           = $row[3];
-            $materno           = $row[4];
-            $fNac              = $row[5];
-            $nacimiento        = date("d-m-Y", strtotime($row[5]));
-            $edad              = $row[6];
-            $correo            = $row[7];
+            $nombre     = $row[2];
+            $paterno    = $row[3];
+            $materno    = $row[4];
+            $fNac       = $row[5];
+            $nacimiento = date("d-m-Y", strtotime($row[5]));
+            $edad       = $row[6];
+            $correo     = $row[7];
             $curp       = $row[8];
 
             ?>
@@ -82,6 +82,11 @@ $consultar = mysqli_query($conexionLi, $cadena);
                 <td>
                     <button <?php echo $dtnDesabilita?> type="button" class="imprimir btn btn-outline-warning fa-1x activo" id="btnImprimir<?php echo $n?>" onclick="imprimir_datos('<?php echo $id?>')">
                                 <i class="fas fa-print fa-lg"></i>
+                    </button>
+                </td>
+                <td>
+                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info fa-1x activo"  onclick="abrirModalDatos('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>')">
+                        <i class="far fa-window-maximize fa-lg"></i>
                     </button>
                 </td>
                 <td>
@@ -119,6 +124,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                 <th scope="col">#</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Imprimir</th>
+                <th scope="col">Datos</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Ap. Paterno</th>
                 <th scope="col">Ap. Materno</th>

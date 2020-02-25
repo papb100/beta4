@@ -1,7 +1,9 @@
 
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web");
+
 *{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
+    font-family: "Titillium Web",Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: normal;
     --color-base: #1279F4;
     --letra-base: #fff;
     --borde-base: #ccc;

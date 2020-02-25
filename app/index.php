@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                         <div class="form-group">
-                            <label for="eApMaterno">APellido Materno:</label>
+                            <label for="eApMaterno">Apellido Materno:</label>
                             <input type="text" class="form-control activo" id="eApMaterno" required>
                         </div>
                     </div>
@@ -177,7 +177,10 @@
     <!-- Modal de carga -->
         <?php include'modalCarga.php'; ?>
     <!-- Modal de carga -->
-    
+    <!-- Modal de datos -->
+        <?php include'modalDatos.php'; ?>
+    <!-- Modal de datos -->
+
     <!-- jQuery -->
     <script src="../plugins/jQuery/jquery-3.3.1.js"></script>   
     <!-- Bootstrap-4 -->

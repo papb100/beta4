@@ -1,5 +1,5 @@
 <div class="modal" id="modalCarga" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" >
-  <div class="modal-dialog modal-sm" >
+  <div class="modal-dialog modal-sm modal-dialog-centered" >
     <div class="modal-content">
 
       <div class="modal-body">

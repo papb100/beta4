@@ -15,11 +15,9 @@ $("#frmGuardar").submit(function(e){
         data:{nombre,apPaterno,apMaterno,edad,fNac,correo,curp},
         success:function(respuesta){
             console.log(respuesta);
-            abrirModalCarga('Cargando Lista');
                 llenar_lista1();
                 $("#frmGuardar")[0].reset();
                 alertify.success("<i class='fa fa-save fa-lg'></i>", 2);
-            cerrarModalCarga();
             $('#nombre').focus();
             log("Usuario inserto registro");
 
@@ -49,13 +47,10 @@ $("#frmActualizar").submit(function(e){
         dateType:"html",
         data:{id,nombre,apPaterno,apMaterno,edad,fNac,correo,curp},
         success:function(respuesta){
-            console.log("Calculando edad");
-            abrirModalCarga(respuesta);
             llenar_lista1();
                 $("#frmGuardar")[0].reset();
                 $("#frmActualizar")[0].reset();
                 alertify.success("<i class='fa fa-bolt fa-lg'></i>", 2);
-            cerrarModalCarga();
             $("#btnCancelar").click();
             log("Usuario modifico registro");
             $('#nombre').focus();
@@ -70,7 +65,7 @@ $("#frmActualizar").submit(function(e){
 
 function llenar_lista1(){
     //color azul
-    
+    abrirModalCarga('Cargando Lista');
     $("#Listado1").hide();
     $.ajax({
         url:"lista1.php",
@@ -80,6 +75,7 @@ function llenar_lista1(){
         success:function(respuesta){
             $("#Listado1").html(respuesta);
             $("#Listado1").slideDown('slow');
+            cerrarModalCarga();
             $("#nombre").focus();
         },
         error:function(xhr,status){
@@ -172,6 +168,20 @@ function cambiar_estatus(id,consecutivo){
 
 }
 
+function abrirModalDatos(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp) {
+    $("#modalTitle").text("Datos personales - "+nombre+' '+apPaterno);
+
+    $("#mNombre").val(nombre);
+    $("#mApPaterno").val(apPaterno);
+    $("#mApMaterno").val(apMaterno);
+    $("#mfNac").val(fNac);
+    $("#mEdad").val(edad);
+    $("#mCorreo").val(correo);
+    $("#mCurp").val(curp);
+
+    $("#modalDatos").modal("show");
+}
+
 function cambioColor(duracion , colorF , mensaje , colorL="#fff"){
     //color azul
     $(".jumbotron , .hTabla").css({
@@ -235,8 +245,13 @@ function mov_lista(){
         //color verde
         cambioColor('.5s' , '#2AA44E' , 'Editar datos personales')
     });
+
+    $(".ventana").mouseover(function(){
+        //color verde
+        cambioColor('.5s' , '#17A2B8' , 'Editar datos personales')
+    });
     
-    $(".imprimir , .editar ").mouseout(function(){
+    $(".imprimir , .editar , .ventana").mouseout(function(){
         //color azul
         cambioColor('.5s' , '#1278F4' , 'Captura de Información')
     });
