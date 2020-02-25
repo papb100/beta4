@@ -9,6 +9,9 @@
 
 body{
     background:#ffffff ;
+    background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #1279F4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #1279F4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
 }
 
 .myJT{
@@ -18,7 +21,7 @@ body{
     border-bottom:8px solid var(--borde-base) ;
 }
 
-form{
+form , .contenedor{
     border-top:.1em solid var(--borde-base) ;
     border-bottom:.1em solid var(--borde-base) ;
     border-left:.1em solid var(--borde-base) ;

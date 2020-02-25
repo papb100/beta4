@@ -179,6 +179,15 @@ function cambioColor(duracion , colorF , mensaje , colorL="#fff"){
         "background-color": colorF,
         color: colorL
     });
+
+    $("body").css({
+        transition : 'background'+ duracion +' ease-in-out',
+        background: '#FFEFBA',  /* fallback for old browsers */
+        background: '-webkit-linear-gradient(to right, #FFFFFF, '+colorF+')',  /* Chrome 10-25, Safari 5.1-6 */
+        background: 'linear-gradient(to right, #FFFFFF,'+colorF+')' /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    });
+
+
     $("#titular").html(mensaje);
 }
 

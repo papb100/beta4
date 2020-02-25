@@ -31,7 +31,7 @@
 
     <div class="jumbotron jumbotron-fluid myJT animated  flipInX">
         <div class="container">
-            <h1 class="display-4"><i class="far fa-user-circle"></i> Formulario de datos</h1>
+            <h1 class="display-4"><i class="far fa-user-circle"></i> Formulario de datos </h1>
             <p class="lead" id="titular">Captura de información</p>
         </div>
     </div>
@@ -170,7 +170,7 @@
             </form>
         </section>
 
-        <section id="Listado1" class="animated  fadeIn delay-1s"></section>
+        <section id="Listado1" class="animated  fadeIn delay-1s contenedor"></section>
         
     </div>
 
