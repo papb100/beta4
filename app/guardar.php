@@ -1,11 +1,11 @@
 <?php
-// Conexion MYSQL
-include ("../conexiones/conexionli.php");
+// Conexion mysqli
+include ("../conexion/conexionli.php");
 
 date_default_timezone_set("America/Monterrey");
 
 //Recibo valores con el metodo POST
-$clave    = trim($_POST['clave']);
+$clave     = trim($_POST['clave']);
 $nombre    = trim($_POST['nombre']);
 $apPaterno = trim($_POST['apPaterno']);
 $apMaterno = trim($_POST['apMaterno']);
@@ -13,6 +13,9 @@ $fNac      = trim($_POST['fNac']);
 $edad      = trim($_POST['edad']);
 $correo    = trim($_POST['correo']);
 $curp      = trim($_POST['curp']);
+$domicilio = trim($_POST['domicilio']);
+$sexo      = trim($_POST['sexo']);
+$ecivil    = trim($_POST['ecivil']);
 $activo    = 1;
 
 $fecha=date("Y-m-d"); 
@@ -30,6 +33,9 @@ $cadena = "INSERT INTO datos
 				curp, 
 				fecha_nac, 
 				correo, 
+				domicilio, 
+				sexo, 
+				ecivil, 
 				fecha_registro, 
 				hora_registro,
 				activo)
@@ -42,6 +48,9 @@ $cadena = "INSERT INTO datos
 				'$curp', 
 				'$fNac', 
 				'$correo', 
+				'$domicilio',
+				'$sexo',
+				'$ecivil',
 				'$fecha', 
 				'$hora',
 				$activo)";

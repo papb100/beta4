@@ -1,11 +1,12 @@
 <?php
-// Conexion MYSQL
-include ("../conexiones/conexionli.php");
+// Conexion mysqli
+include ("../conexion/conexionli.php");
 
 date_default_timezone_set("America/Monterrey");
 
 //Recibo valores con el metodo POST
 $id    	   = $_POST['id'];
+$clave     = trim($_POST['clave']);
 $nombre    = trim($_POST['nombre']);
 $apPaterno = trim($_POST['apPaterno']);
 $apMaterno = trim($_POST['apMaterno']);
@@ -13,7 +14,10 @@ $fNac      = trim($_POST['fNac']);
 $edad      = trim($_POST['edad']);
 $correo    = trim($_POST['correo']);
 $curp      = trim($_POST['curp']);
-$clave      = trim($_POST['clave']);
+$clave     = trim($_POST['clave']);
+$domicilio = trim($_POST['domicilio']);
+$sexo      = trim($_POST['sexo']);
+$ecivil    = trim($_POST['ecivil']);
 $activo    = 1;
 
 $fecha=date("Y-m-d"); 
@@ -24,16 +28,20 @@ mysqli_set_charset($conexionLi, 'utf8');	//Sin esta linea los caracteres especia
 //Inserto registro en tabla pacientes 
 $cadena = "UPDATE datos
 			SET
-				nombre='$nombre',
-				ap_paterno='$apPaterno', 
-				ap_materno='$apMaterno', 
-				edad='$edad', 
-				curp='$curp', 
-				clave='$clave', 
-				fecha_nac='$fNac', 
-				correo='$correo', 
-				fecha_registro='$fecha', 
-				hora_registro='$hora'
+				clave          = '$clave',
+				nombre         = '$nombre',
+				ap_paterno     = '$apPaterno', 
+				ap_materno     = '$apMaterno', 
+				edad           = '$edad', 
+				curp           = '$curp', 
+				clave          = '$clave', 
+				domicilio      = '$domicilio', 
+				sexo           = '$sexo', 
+				ecivil         = '$ecivil', 
+				fecha_nac      = '$fNac', 
+				correo         = '$correo', 
+				fecha_registro = '$fecha', 
+				hora_registro  = '$hora'
 			WHERE 
 				id= $id";
 $actualizar = mysqli_query($conexionLi, $cadena);

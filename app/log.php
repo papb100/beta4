@@ -1,6 +1,6 @@
 <?php
-// Conexion MYSQL
-include ("../conexiones/conexionli.php");
+// Conexion mysqli
+include ("../conexion/conexionli.php");
 
 date_default_timezone_set("America/Monterrey");
 

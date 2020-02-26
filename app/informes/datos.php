@@ -1,6 +1,6 @@
 <?php 
-
-include'../conexiones/conexionli.php';
+// Conexion mysqli
+include'../conexion/conexionli.php';
 
 include ("../funciones/calcularEdad.php");
 

@@ -8,7 +8,7 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <title>Programa piloto</title>
+     <title>bETA 4</title>
      <!-- Bootstrap-4 -->
      <link rel="stylesheet" href="../plugins/bootstrap-4.0.0/dist/css/bootstrap.min.css">
      <!-- Estilos propios -->
@@ -26,24 +26,27 @@
      <link rel="stylesheet" href="../plugins/animate/animate.css">
      <!-- Bootstrap Switch Button -->
      <link rel="stylesheet" href="../plugins/bootstrap4-toggle-master/css/bootstrap4-toggle.min.css">
+     <!-- Select 2 -->
+     <link rel="stylesheet" href="../plugins/select2-master/dist/css/select2.min.css">
+     <link rel="stylesheet" href="../plugins/select2-master/dist/css/select2-bootstrap4.min.css">
 </head>
 <body>
 
     <div class="jumbotron jumbotron-fluid myJT animated  flipInX">
         <div class="container">
-            <h1 class="display-4"><i class="far fa-user-circle"></i> Formulario de datos </h1>
-            <p class="lead" id="titular">Captura de información</p>
+            <h1 class="display-4"><i class="far fa-user-circle"></i> Datos Personales </h1>
+            <p class="lead" id="titular">Programa de ejemplo</p>
         </div>
     </div>
 
     <div class="container">
-        <section id="guardar">
-            <form id="frmGuardar" class="animated  fadeInUp">
+        <section id="guardar" style="display:none;">
+            <form id="frmGuardar">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
                         <div class="form-group">
                             <label for="clave">clave:</label>
-                            <input type="number" class="form-control " id="clave" autofocus required maxlength="3">
+                            <input type="number" class="form-control " id="clave"  maxlength="3" autofocus required >
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
@@ -85,14 +88,44 @@
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                         <div class="form-group">
                             <label for="curp">Curp:</label>
-                            <input type="text" class="form-control activo" id="curp" required  onkeyup="curpValida(this);" maxlength="18">
+                            <input type="text" class="form-control activo" id="curp" required  maxlength="18">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="domicilio">Domicilio:</label>
+                            <input type="text" class="form-control activo" id="domicilio" required>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="sexo">Sexo:</label>
+                            <select id="sexo" class="select2" style="width: 100%" >
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
                         </div>
                     </div>
 
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="ecivil">Estado Civil:</label>
+                            <select id="ecivil" class="select2" style="width: 100%" >
+
+                            </select>
+                        </div>
+                    </div>
                     <div class="container">
                         <div class="row">
+                            <div class="col text-left">
+                                <button  type="button" class="btn btn-outline-danger  activo " id="btnCancelarG">
+                                    <i class='fa fa-ban fa-lg'></i>
+                                    Cancelar
+                                </button>
+                            </div>
+
                             <div class="col text-right">
-                                <button  type="submit" class="btn btn-outline-dark  activo " id="btnGuardar">
+                                <button  type="submit" class="btn btn-outline-primary  activo " id="btnGuardar">
                                     <i class='fa fa-save fa-lg'></i>
                                     Guardar Información
                                 </button>
@@ -106,7 +139,7 @@
         </section>
 
         <section id="editar" style="display:none;">
-            <form id="frmActualizar" class="animated  fadeInUp">
+            <form id="frmActualizar">
 
             <input type="hidden"  id="eId">
 
@@ -114,7 +147,7 @@
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
                         <div class="form-group">
                             <label for="eClave">clave:</label>
-                            <input type="number" class="form-control " id="clave" autofocus required maxlength="3">
+                            <input type="number" class="form-control " id="eClave" autofocus required maxlength="3" readonly>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
@@ -159,11 +192,35 @@
                             <input type="text" class="form-control activo" id="eCurp" required>
                         </div>
                     </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="eDomicilio">Domicilio:</label>
+                            <input type="text" class="form-control activo" id="eDomicilio" required>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="eSexo">Sexo:</label>
+                            <select id="eSexo" class="select2" style="width: 100%" >
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="eEcivil">Estado Civil:</label>
+                            <select id="eEcivil" class="select2" style="width: 100%" >
+
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="container">
                         <div class="row">
                             <div class="col text-left">
-                                <button  type="button" class="btn btn-outline-danger  activo " id="btnCancelar">
+                                <button  type="button" class="btn btn-outline-danger  activo " id="btnCancelarA">
                                     <i class='fa fa-ban fa-lg'></i>
                                     Cancelar
                                 </button>
@@ -180,9 +237,10 @@
                 </div>
 
             </form>
-        </section>
 
-        <section id="Listado1" class="animated  fadeIn delay-1s contenedor"></section>
+        </section>
+        
+        <section id="Listado1" class="animated  fadeIn contenedor"></section>
         
     </div>
 
@@ -220,8 +278,12 @@
     <script type="text/javascript" src="../plugins/bootstrap4-toggle-master/js/bootstrap4-toggle.min.js"></script>
     <!-- pdfObject -->
     <script type="text/javascript" src="../plugins/PDFObject-master/pdfobject.min.js"></script>
+    <!-- Select 2 -->
+    <script type="text/javascript" src="../plugins/select2-master/dist/js/select2.full.min.js"></script>
     <script>
+        combo_ecivil();
         llenar_lista1();
+        selectTwo();
     </script>
 </body>
 </html>

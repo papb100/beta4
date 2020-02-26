@@ -18,32 +18,51 @@ $("#frmGuardar").submit(function(e){
     var edad      = $("#edad").val();
     var correo    = $("#correo").val();
     var curp      = $("#curp").val();
+    var domicilio = $("#domicilio").val();
+    var sexo      = $("#sexo").val();
+    var ecivil    = $("#ecivil").val();
 
-    $.ajax({
-        url:"guardar.php",
-        type:"POST",
-        dateType:"html",
-        data:{clave,nombre,apPaterno,apMaterno,edad,fNac,correo,curp},
-        success:function(respuesta){
-            console.log(respuesta);
-                llenar_lista1();
-                $("#frmGuardar")[0].reset();
-                alertify.success("<i class='fa fa-save fa-lg'></i>", 2);
-            $('#nombre').focus();
-            log("Usuario inserto registro");
+    //transition -> slide , zoom , flipx , flipy , fade , pulse
+    alertify.confirm('alert').set({transition:'zoom',message: 'Transition effect: zoom'}).show();
+    alertify.confirm(
+        'Sistema', 
+        '¿Deseas guardar la información?', 
+        function(){ 
 
-        },
-        error:function(xhr,status){
-            alert("Error en metodo AJAX"); 
-        },
-    });
+            $.ajax({
+                url:"guardar.php",
+                type:"POST",
+                dateType:"html",
+                data:{clave,nombre,apPaterno,apMaterno,edad,fNac,correo,curp,domicilio,sexo,ecivil},
+                success:function(respuesta){
+                    console.log(respuesta);
+                    llenar_lista1();
+                    $("#frmGuardar")[0].reset();
+                    selectTwo();
+                    alertify.success("<i class='fa fa-save fa-lg'></i>", 2);
+                    $('#nombre').focus();
+                    log("Usuario inserto registro");
+        
+                },
+                error:function(xhr,status){
+                    alert("Error en metodo AJAX"); 
+                },
+            });
+
+        }, 
+        function(){ 
+            alertify.error("<i class='fa fa-times fa-lg'></i>", 2);
+                }
+    ).set('labels',{ok:'Guardar',cancel:'Salir'});
+    
+
     e.preventDefault();
     return false;
 });
 
 $("#frmActualizar").submit(function(e){
 
-    var id    = $("#eId").val();
+    var id        = $("#eId").val();
     var nombre    = $("#eNombre").val();
     var apPaterno = $("#eApPaterno").val();
     var apMaterno = $("#eApMaterno").val();
@@ -51,32 +70,48 @@ $("#frmActualizar").submit(function(e){
     var edad      = $("#eEdad").val();
     var correo    = $("#eCorreo").val();
     var curp      = $("#eCurp").val();
-    var clave      = $("#eClave").val();
+    var clave     = $("#eClave").val();
+    var domicilio = $("#eDomicilio").val();
+    var sexo      = $("#eSexo").val();
+    var ecivil    = $("#eEcivil").val();
 
-    $.ajax({
-        url:"actualizar.php",
-        type:"POST",
-        dateType:"html",
-        data:{id,nombre,apPaterno,apMaterno,edad,fNac,correo,curp},
-        success:function(respuesta){
-            llenar_lista1();
-                $("#frmGuardar")[0].reset();
-                $("#frmActualizar")[0].reset();
-                alertify.success("<i class='fa fa-bolt fa-lg'></i>", 2);
-            $("#btnCancelar").click();
-            log("Usuario modifico registro");
-            $('#nombre').focus();
-        },
-        error:function(xhr,status){
-            alert("Error en metodo AJAX"); 
-        },
-    });
+        //transition -> slide , zoom , flipx , flipy , fade , pulse
+        alertify.confirm('alert').set({transition:'zoom',message: 'Transition effect: zoom'}).show();
+        alertify.confirm(
+            'Sistema', 
+            '¿Deseas actualizar la Información?', 
+            function(){ 
+    
+                $.ajax({
+                    url:"actualizar.php",
+                    type:"POST",
+                    dateType:"html",
+                    data:{clave,id,nombre,apPaterno,apMaterno,edad,fNac,correo,curp,clave,domicilio,sexo,ecivil},
+                    success:function(respuesta){
+                        llenar_lista1();
+                            $("#frmGuardar")[0].reset();
+                            $("#frmActualizar")[0].reset();
+                            alertify.success("<i class='fa fa-bolt fa-lg'></i>", 2);
+                        $("#btnCancelarG , #btnCancelarA").click();
+                        log("Usuario modifico registro");
+                        $('#nombre').focus();
+                    },
+                    error:function(xhr,status){
+                        alert("Error en metodo AJAX"); 
+                    },
+                });
+    
+            }, 
+            function(){ 
+                alertify.error("<i class='fa fa-times fa-lg'></i>", 2);
+                    }
+        ).set('labels',{ok:'Actualizar',cancel:'Salir'});
+
     e.preventDefault();
     return false;
 });
 
 function llenar_lista1(){
-    //color azul
     abrirModalCarga('Cargando Lista');
     $("#Listado1").hide();
     $.ajax({
@@ -88,6 +123,7 @@ function llenar_lista1(){
             $("#Listado1").html(respuesta);
             $("#Listado1").slideDown('slow');
             cerrarModalCarga();
+            
             $("#nombre").focus();
         },
         error:function(xhr,status){
@@ -122,17 +158,25 @@ function edad(fecha){
     });
 }
 
-function llenar_formulario(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp,clave){
+function llenar_formulario(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp,clave,domicilio,sexo,ecivil){
+
     $("#eId").val(id);
+    $("#eClave").val(clave);
     $("#eNombre").val(nombre);
     $("#eApPaterno").val(apPaterno);
     $("#eApMaterno").val(apMaterno);
-    $("#efNac").val(fNac);
+    $("#eFNac").val(fNac);
     $("#eEdad").val(edad);
     $("#eCorreo").val(correo);
     $("#eCurp").val(curp);
     $("#eClave").val(clave);
-    $("#titular").text("Actualizar información");
+    $("#eDomicilio").val(domicilio);
+    $("#eSexo").val(sexo);
+    $("#eEcivil").val(ecivil);
+
+    selectTwo();
+
+    $("#titular").text("Actualizar Información");
     $("#guardar").hide();
     $("#Listado1").hide();
     $("#editar").show();
@@ -183,7 +227,7 @@ function cambiar_estatus(id,consecutivo){
 
 }
 
-function abrirModalDatos(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp,clave) {
+function abrirModalDatos(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp,clave,domicilio,sexo,ecivil) {
     $("#modalTitle").text("Datos personales - "+nombre+' '+apPaterno);
 
     $("#mNombre").val(nombre);
@@ -194,6 +238,11 @@ function abrirModalDatos(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp,cla
     $("#mCorreo").val(correo);
     $("#mCurp").val(curp);
     $("#mClave").val(clave);
+    $("#mDomicilio").val(domicilio);
+    $("#mSexo").val(sexo);
+    $("#mEcivil").val(ecivil);
+
+    selectTwo();
 
     $("#modalDatos").modal("show");
 }
@@ -206,14 +255,6 @@ function cambioColor(duracion , colorF , mensaje , colorL=blanco){
         color: colorL
     });
 
-    $("body").css({
-        transition : 'background'+ duracion +' ease-in-out',
-        background: '#FFEFBA',  /* fallback for old browsers */
-        background: '-webkit-linear-gradient(to right, #FFFFFF, '+colorF+')',  /* Chrome 10-25, Safari 5.1-6 */
-        background: 'linear-gradient(to right, #FFFFFF,'+colorF+')' /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    });
-
-
     $("#titular").html(mensaje);
 }
 
@@ -223,37 +264,45 @@ $("#fNac , #efNac").change(function(){
     edad(fecha);
 });
 
-$("#btnCancelar").click(function(){
+$("#btnCancelarG , #btnCancelarA").click(function(){
     $("#editar").hide();
-    $("#Listado1").show();
-    $("#guardar").show();
-    cambioColor('.5s' , azul , "Captura de Información",negro)
+    $("#guardar").hide();
+    $("#Listado1").fadeIn();
+    cambioColor('.5s' , obscuro , "Programa de ejemplo", blanco)
 });
 
-$("#btnCancelar").mouseover(function(){
-    cambioColor('.5s' , rojo , 'Cancelar edición de datos')
+$("#btnCancelarG").mouseover(function(){
+    cambioColor('.5s' , rojo , 'Cancelar captura de Información')
 });
 
-$("#btnActualizar").mouseover(function(){
-    cambioColor('.5s' , verde , 'Actualizar datos personales')
+$("#btnCancelarA").mouseover(function(){
+    cambioColor('.5s' , rojo , 'Cancelar actualizacion de Información')
 });
 
-$("#btnGuardar").mouseover(function(){
-    cambioColor('.5s' , obscuro , 'Actualizar datos personales',blanco)
+$("#btnActualizar").mouseout(function(){
+    cambioColor('.5s' , obscuro , 'Programa de Ejemplo')
 });
 
-$("#btnActualizar , #btnCancelar , #btnGuardar").mouseout(function(){
-    cambioColor('.5s' , azul , 'Actualizar de Información')
+$("#btnGuardar").mouseout(function(){
+    cambioColor('.5s' , obscuro , 'Programa de Ejemplo',blanco)
 });
 
-function mov_lista(){
+$("#btnCancelarG").mouseout(function(){
+    cambioColor('.5s' , obscuro , 'Programa de Ejemplo')
+});
+
+$("#btnCancelarA ").mouseout(function(){
+    cambioColor('.5s' , obscuro , 'Programa de Ejemplo')
+});
+
+function inputs(){
+
     $(".imprimir").mouseover(function(){
         if ($(this).is('[disabled]')) {
             cambioColor('.5s' , rojo , 'Imprimir datos personales','#fff')
         }else{
             cambioColor('.5s' , amarillo , 'Imprimir datos personales','#000')
         }
-        
     });
     
     $(".editar").mouseover(function(){
@@ -274,37 +323,46 @@ function mov_lista(){
 
     $("#btnGuardar").mouseover(function(){
         if ($(this).is('[disabled]')) {
-            cambioColor('.5s' , rojo , 'Editar datos personales')
+            cambioColor('.5s' , rojo , 'Programa de ejemplo')
         }else{
-            cambioColor('.5s' , obscuro , 'Editar datos personales')
+            cambioColor('.5s' , azul , 'Captura de Información')
+        }
+    });
+
+    $("#btnActualizar").mouseover(function(){
+        if ($(this).is('[disabled]')) {
+            cambioColor('.5s' , rojo , 'Programa de ejemplo')
+        }else{
+            cambioColor('.5s' , verde , 'Actualizar datos personales')
         }
     });
     
     $(".imprimir , .editar , .ventana").mouseout(function(){
-        cambioColor('.5s' , '#1278F4' , 'Captura de Información')
+        cambioColor('.5s' , obscuro , 'Programa de ejemplo')
     });
 
-    $("#clave").keydown(function(event) {
-        if(event.shiftKey)
-        {
-             event.preventDefault();
+    $("#clave").keydown(function() {
+        var valor=$(this).val();
+        soloNumeros(valor);
+    });
+
+    $("#curp").keyup(function() {
+
+        valor=$(this);
+        // Convierte en mayuscula
+        valor.val(valor.val().toUpperCase());
+        
+        //validar curp + expresion regular
+        if (curpValida(valor.val())=="Si") {
+            //$("#btnGuardar").removeAttr('disabled');
+            $(valor).css("color", obscuro);
+            alertify.success("Curp valida !",1);
+        }else{
+            //$("#btnGuardar").attr('disabled','disabled');
+            $(valor).css("color", rojo);
         }
-     
-        if (event.keyCode == 46 || event.keyCode == 9 || event.keyCode == 8 )    {
-        }
-        else {
-             if (event.keyCode < 95) {
-               if (event.keyCode < 45 || event.keyCode > 57) {
-                     event.preventDefault();
-               }
-             } 
-             else {
-                   if (event.keyCode < 96 || event.keyCode > 105) {
-                       event.preventDefault();
-                   }
-             }
-           }
-        });
+
+    });
 }
 //Manipulacion de eventos con jquery
 
@@ -321,9 +379,7 @@ function log(actividad){
             alert("Error en metodo AJAX"); 
         },
     });
-   
 }
-
 
 function abrirModalPDF(id) {
 
@@ -336,22 +392,76 @@ function abrirModalPDF(id) {
 
 }
 
-function curpValida(e) {
-    // Convierte en mayuscula
-    e.value = e.value.toUpperCase();
+//solo numeros
+function soloNumeros(e){
+    if(event.shiftKey)
+    {
+         event.preventDefault();
+    }
+ 
+    if (event.keyCode == 46 || event.keyCode == 9 || event.keyCode == 8 )    {
+    }
+    else {
+         if (event.keyCode < 95) {
+           if (event.keyCode < 45 || event.keyCode > 57) {
+                 event.preventDefault();
+           }
+         } 
+         else {
+               if (event.keyCode < 96 || event.keyCode > 105) {
+                   event.preventDefault();
+               }
+         }
+       }
+}
 
-    var curp=$(e).val();
+//validar curp
+function curpValida(valor) {
+
+    var validador;
+    var curp=valor;
 
     // Expresion regular para curp
     var re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
         validado = curp.match(re);
     
     if (!validado){  //Coincide con el formato general?
-        $("#btnGuardar").attr('disabled','disabled');
-        $(e).css("color", rojo);
+        validador="No";
     }else{
-        $("#btnGuardar").removeAttr('disabled');
-        $(e).css("color", obscuro);
+        validador="Si";
     }
+    return validador;
 }
 
+//llenar combo
+function combo_ecivil()
+{
+    $.ajax({
+        url : 'comboEcivil.php',
+        data : {},
+        type : 'POST',
+        dataType : 'html',
+        success : function(respuesta) {
+            $("#ecivil , #eEcivil , #mEcivil").empty();
+            $("#ecivil , #eEcivil , #mEcivil").html(respuesta);    
+            selectTwo();
+        },
+ 
+        error : function(xhr, status) {
+            alert('Disculpe, existió un problema');
+        },
+    });
+}
+
+function selectTwo(){
+    $( ".select2" ).select2({
+        theme: "bootstrap4",
+        placeholder: 'Seleccione...'
+    });
+}
+
+function nuevo_registro(){
+    $("#Listado1").hide();
+    $("#guardar").fadeIn();
+    $("#clave").focus();
+}

@@ -1,6 +1,6 @@
 <?php
-// Conexion SQL SERVER
-include'../conexiones/conexionli.php';
+// Conexion mysqli
+include'../conexion/conexionli.php';
 
 date_default_timezone_set('America/Monterrey');
 
@@ -19,13 +19,17 @@ $cadena = "SELECT
                 edad,
                 correo,
                 curp,
-                clave
+                clave,
+                domicilio,
+                sexo,
+                ecivil
             FROM
                 datos ORDER BY id DESC";
 $consultar = mysqli_query($conexionLi, $cadena);
 //$row = mysqli_fetch_array($consultar);
 
 ?>
+
 <div class="table-responsive">
 <table id="example1" class="table table-striped table-bordered" style="width:100%">
 
@@ -71,6 +75,9 @@ $consultar = mysqli_query($conexionLi, $cadena);
             $correo     = $row[7];
             $curp       = $row[8];
             $clave      = $row[9];
+            $domicilio  = $row[10];
+            $sexo       = $row[11];
+            $ecivil     = $row[12];
 
             ?>
             <tr class="centrar">
@@ -78,7 +85,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                     <?php echo $n?>
                 </th>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="editar btn btn-outline-success fa-1x activo" id="btnEditar<?php echo $n?>" onclick="llenar_formulario('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>','<?php echo $clave?>')">
+                    <button <?php echo $dtnDesabilita?> type="button" class="editar btn btn-outline-success fa-1x activo" id="btnEditar<?php echo $n?>" onclick="llenar_formulario('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>','<?php echo $clave?>','<?php echo $domicilio?>','<?php echo $sexo?>','<?php echo $ecivil?>')">
                                 <i class="far fa-edit fa-lg"></i>
                     </button>
                 <td>
@@ -87,7 +94,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                     </button>
                 </td>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info fa-1x activo"  id="btnModal<?php echo $n?>" onclick="abrirModalDatos('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>','<?php echo $clave?>')">
+                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info fa-1x activo"  id="btnModal<?php echo $n?>" onclick="abrirModalDatos('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>','<?php echo $clave?>','<?php echo $domicilio?>','<?php echo $sexo?>','<?php echo $ecivil?>')">
                         <i class="far fa-window-maximize fa-lg"></i>
                     </button>
                 </td>
@@ -174,7 +181,14 @@ mysqli_close($conexionLi);
                 // visible: false
             }],
             buttons: [
-
+                      {
+                          text: "<i class='fas fa-plus fa-lg' aria-hidden='true'></i> &nbsp;Nuevo Registro",
+                          className: 'btn btn-outline-primary',
+                          id: 'btnNuevo',
+                          action : function(){
+                            nuevo_registro();
+                          }
+                      },
                       {
                           extend: 'excel',
                           text: "<i class='far fa-file-excel fa-lg' aria-hidden='true'></i> &nbsp;Exportar a Excel",
@@ -185,6 +199,7 @@ mysqli_close($conexionLi);
                               columns: ':visible'
                           }
                       }
+
             ]
         } );
     } );
@@ -193,5 +208,5 @@ mysqli_close($conexionLi);
 
 <script>
     $('.toggle-two').bootstrapToggle();
-    mov_lista();
+    inputs();
 </script>
