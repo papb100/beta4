@@ -1,5 +1,16 @@
+//Variables globales
+var blanco   = "#ffffff";
+var negro    = "#000000";
+var obscuro  = "#343A40";
+var azul     = "#1278F4";
+var verde    = "#2AA44E";
+var rojo     = "#D9304B";
+var amarillo = "#FFC107";
+var celeste  = "#17A2B8";
+
 $("#frmGuardar").submit(function(e){
 
+    var clave    = $("#clave").val();
     var nombre    = $("#nombre").val();
     var apPaterno = $("#apPaterno").val();
     var apMaterno = $("#apMaterno").val();
@@ -12,7 +23,7 @@ $("#frmGuardar").submit(function(e){
         url:"guardar.php",
         type:"POST",
         dateType:"html",
-        data:{nombre,apPaterno,apMaterno,edad,fNac,correo,curp},
+        data:{clave,nombre,apPaterno,apMaterno,edad,fNac,correo,curp},
         success:function(respuesta){
             console.log(respuesta);
                 llenar_lista1();
@@ -36,10 +47,11 @@ $("#frmActualizar").submit(function(e){
     var nombre    = $("#eNombre").val();
     var apPaterno = $("#eApPaterno").val();
     var apMaterno = $("#eApMaterno").val();
-    var fNac      = $("#efNac").val();
+    var fNac      = $("#eFNac").val();
     var edad      = $("#eEdad").val();
     var correo    = $("#eCorreo").val();
     var curp      = $("#eCurp").val();
+    var clave      = $("#eClave").val();
 
     $.ajax({
         url:"actualizar.php",
@@ -110,7 +122,7 @@ function edad(fecha){
     });
 }
 
-function llenar_formulario(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp){
+function llenar_formulario(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp,clave){
     $("#eId").val(id);
     $("#eNombre").val(nombre);
     $("#eApPaterno").val(apPaterno);
@@ -119,6 +131,7 @@ function llenar_formulario(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp){
     $("#eEdad").val(edad);
     $("#eCorreo").val(correo);
     $("#eCurp").val(curp);
+    $("#eClave").val(clave);
     $("#titular").text("Actualizar información");
     $("#guardar").hide();
     $("#Listado1").hide();
@@ -170,29 +183,20 @@ function cambiar_estatus(id,consecutivo){
 
 }
 
-function abrirModalDatos(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp) {
+function abrirModalDatos(id,nombre,apPaterno,apMaterno,fNac,edad,correo,curp,clave) {
     $("#modalTitle").text("Datos personales - "+nombre+' '+apPaterno);
 
     $("#mNombre").val(nombre);
     $("#mApPaterno").val(apPaterno);
     $("#mApMaterno").val(apMaterno);
-    $("#mfNac").val(fNac);
+    $("#mFNac").val(fNac);
     $("#mEdad").val(edad);
     $("#mCorreo").val(correo);
     $("#mCurp").val(curp);
+    $("#mClave").val(clave);
 
     $("#modalDatos").modal("show");
 }
-
-//Variables globales
-var blanco   = "#ffffff";
-var negro    = "#000000";
-var obscuro  = "#343A40";
-var azul     = "#1278F4";
-var verde    = "#2AA44E";
-var rojo     = "#D9304B";
-var amarillo = "#FFC107";
-var celeste  = "#17A2B8";
 
 function cambioColor(duracion , colorF , mensaje , colorL=blanco){
     //color azul
@@ -239,7 +243,7 @@ $("#btnGuardar").mouseover(function(){
 });
 
 $("#btnActualizar , #btnCancelar , #btnGuardar").mouseout(function(){
-    cambioColor('.5s' , verde , 'Actualizar de Información')
+    cambioColor('.5s' , azul , 'Actualizar de Información')
 });
 
 function mov_lista(){
@@ -267,10 +271,40 @@ function mov_lista(){
             cambioColor('.5s' , celeste , 'Mostrar ventana modal')
         }
     });
+
+    $("#btnGuardar").mouseover(function(){
+        if ($(this).is('[disabled]')) {
+            cambioColor('.5s' , rojo , 'Editar datos personales')
+        }else{
+            cambioColor('.5s' , obscuro , 'Editar datos personales')
+        }
+    });
     
     $(".imprimir , .editar , .ventana").mouseout(function(){
         cambioColor('.5s' , '#1278F4' , 'Captura de Información')
     });
+
+    $("#clave").keydown(function(event) {
+        if(event.shiftKey)
+        {
+             event.preventDefault();
+        }
+     
+        if (event.keyCode == 46 || event.keyCode == 9 || event.keyCode == 8 )    {
+        }
+        else {
+             if (event.keyCode < 95) {
+               if (event.keyCode < 45 || event.keyCode > 57) {
+                     event.preventDefault();
+               }
+             } 
+             else {
+                   if (event.keyCode < 96 || event.keyCode > 105) {
+                       event.preventDefault();
+                   }
+             }
+           }
+        });
 }
 //Manipulacion de eventos con jquery
 
@@ -301,3 +335,23 @@ function abrirModalPDF(id) {
     $("#modalPDF").modal("show");
 
 }
+
+function curpValida(e) {
+    // Convierte en mayuscula
+    e.value = e.value.toUpperCase();
+
+    var curp=$(e).val();
+
+    // Expresion regular para curp
+    var re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+        validado = curp.match(re);
+    
+    if (!validado){  //Coincide con el formato general?
+        $("#btnGuardar").attr('disabled','disabled');
+        $(e).css("color", rojo);
+    }else{
+        $("#btnGuardar").removeAttr('disabled');
+        $(e).css("color", obscuro);
+    }
+}
+

@@ -5,6 +5,7 @@ include ("../conexiones/conexionli.php");
 date_default_timezone_set("America/Monterrey");
 
 //Recibo valores con el metodo POST
+$clave    = trim($_POST['clave']);
 $nombre    = trim($_POST['nombre']);
 $apPaterno = trim($_POST['apPaterno']);
 $apMaterno = trim($_POST['apMaterno']);
@@ -21,7 +22,8 @@ mysqli_set_charset($conexionLi, 'utf8');	//Sin esta linea los caracteres especia
 
 //Inserto registro en tabla pacientes 
 $cadena = "INSERT INTO datos
-				(nombre,
+				(clave,
+				nombre,
 				ap_paterno, 
 				ap_materno, 
 				edad, 
@@ -32,7 +34,8 @@ $cadena = "INSERT INTO datos
 				hora_registro,
 				activo)
 			VALUES
-				('$nombre',
+				('$clave',
+				'$nombre',
 				'$apPaterno', 
 				'$apMaterno', 
 				'$edad', 

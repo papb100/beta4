@@ -40,25 +40,31 @@
         <section id="guardar">
             <form id="frmGuardar" class="animated  fadeInUp">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
+                        <div class="form-group">
+                            <label for="clave">clave:</label>
+                            <input type="number" class="form-control " id="clave" autofocus required maxlength="3">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
                             <input type="text" class="form-control " id="nombre" autofocus required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="apPaterno">Apellido Paterno:</label>
                             <input type="text" class="form-control activo" id="apPaterno" required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="apMaterno">Apellido Materno:</label>
                             <input type="text" class="form-control activo" id="apMaterno" required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="fNac">Nacimiento:</label>
                             <input type="date" class="form-control activo" id="fNac" required value="<?php echo $fecha ?>">
@@ -76,10 +82,10 @@
                             <input type="text" class="form-control activo" id="correo" required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                         <div class="form-group">
                             <label for="curp">Curp:</label>
-                            <input type="text" class="form-control activo" id="curp" required>
+                            <input type="text" class="form-control activo" id="curp" required  onkeyup="curpValida(this);" maxlength="18">
                         </div>
                     </div>
 
@@ -105,27 +111,33 @@
             <input type="hidden"  id="eId">
 
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
+                        <div class="form-group">
+                            <label for="eClave">clave:</label>
+                            <input type="number" class="form-control " id="clave" autofocus required maxlength="3">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
                         <div class="form-group">
                             <label for="eNombre">Nombre:</label>
                             <input type="text" class="form-control " id="eNombre" autofocus required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="eApPaterno">Apellido Paterno:</label>
                             <input type="text" class="form-control activo" id="eApPaterno" required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
                             <label for="eApMaterno">Apellido Materno:</label>
                             <input type="text" class="form-control activo" id="eApMaterno" required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                         <div class="form-group">
-                            <label for="efNac">Nacimiento:</label>
+                            <label for="eFNac">Nacimiento:</label>
                             <input type="date" class="form-control activo" id="efNac" required value="<?php echo $fecha ?>">
                         </div>
                     </div>
@@ -141,7 +153,7 @@
                             <input type="text" class="form-control activo" id="eCorreo" required>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                         <div class="form-group">
                             <label for="eCurp">Curp:</label>
                             <input type="text" class="form-control activo" id="eCurp" required>

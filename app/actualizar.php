@@ -13,6 +13,7 @@ $fNac      = trim($_POST['fNac']);
 $edad      = trim($_POST['edad']);
 $correo    = trim($_POST['correo']);
 $curp      = trim($_POST['curp']);
+$clave      = trim($_POST['clave']);
 $activo    = 1;
 
 $fecha=date("Y-m-d"); 
@@ -28,6 +29,7 @@ $cadena = "UPDATE datos
 				ap_materno='$apMaterno', 
 				edad='$edad', 
 				curp='$curp', 
+				clave='$clave', 
 				fecha_nac='$fNac', 
 				correo='$correo', 
 				fecha_registro='$fecha', 

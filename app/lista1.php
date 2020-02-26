@@ -18,7 +18,8 @@ $cadena = "SELECT
                 fecha_nac,
                 edad,
                 correo,
-                curp
+                curp,
+                clave
             FROM
                 datos ORDER BY id DESC";
 $consultar = mysqli_query($conexionLi, $cadena);
@@ -34,6 +35,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                 <th scope="col">Editar</th>
                 <th scope="col">Imprimir</th>
                 <th scope="col">Datos</th>
+                <th scope="col">Clave</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Ap. Paterno</th>
                 <th scope="col">Ap. Materno</th>
@@ -68,6 +70,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
             $edad       = $row[6];
             $correo     = $row[7];
             $curp       = $row[8];
+            $clave      = $row[9];
 
             ?>
             <tr class="centrar">
@@ -75,7 +78,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                     <?php echo $n?>
                 </th>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="editar btn btn-outline-success fa-1x activo" id="btnEditar<?php echo $n?>" onclick="llenar_formulario('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>')">
+                    <button <?php echo $dtnDesabilita?> type="button" class="editar btn btn-outline-success fa-1x activo" id="btnEditar<?php echo $n?>" onclick="llenar_formulario('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>','<?php echo $clave?>')">
                                 <i class="far fa-edit fa-lg"></i>
                     </button>
                 <td>
@@ -84,9 +87,14 @@ $consultar = mysqli_query($conexionLi, $cadena);
                     </button>
                 </td>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info fa-1x activo"  id="btnModal<?php echo $n?>" onclick="abrirModalDatos('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>')">
+                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info fa-1x activo"  id="btnModal<?php echo $n?>" onclick="abrirModalDatos('<?php echo $id?>','<?php echo $nombre?>','<?php echo $paterno?>','<?php echo $materno?>','<?php echo $fNac?>','<?php echo $edad?>','<?php echo $correo?>','<?php echo $curp?>','<?php echo $clave?>')">
                         <i class="far fa-window-maximize fa-lg"></i>
                     </button>
+                </td>
+                <td>
+                    <label class="textoBase">
+                        <?php echo $clave?>
+                    </label>
                 </td>
                 <td>
                     <label class="textoBase">
@@ -124,6 +132,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                 <th scope="col">Editar</th>
                 <th scope="col">Imprimir</th>
                 <th scope="col">Datos</th>
+                <th scope="col">Clave</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Ap. Paterno</th>
                 <th scope="col">Ap. Materno</th>
