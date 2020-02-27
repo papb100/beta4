@@ -15,7 +15,7 @@
      <link rel="stylesheet" href="../css/estilos.css">
      <!-- Alertifyjs -->
      <link rel="stylesheet" href="../plugins/alertifyjs/css/alertify.min.css">
-     <link rel="stylesheet" href="../plugins/alertifyjs/css/themes/bootstrap.min.css">
+     <link rel="stylesheet" href="../plugins/alertifyjs/css/themes/default.min.css">
      <!-- Fontawesome 5-->
      <link rel="stylesheet" href="../plugins/fontawesome-free-5.8.1-web/css/all.min.css">
      <!-- DataTables -->
