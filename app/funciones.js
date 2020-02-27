@@ -123,7 +123,6 @@ function llenar_lista1(){
             $("#Listado1").html(respuesta);
             $("#Listado1").slideDown('slow');
             cerrarModalCarga();
-            
             $("#nombre").focus();
         },
         error:function(xhr,status){
@@ -148,9 +147,18 @@ function edad(fecha){
         dateType:"html",
         data:{fecha},
         success:function(respuesta){
-            console.log(respuesta);
+
             $("#edad").val(respuesta);
             $("#eEdad").val(respuesta);
+
+            xedad= parseInt(respuesta);
+            if (xedad < 0) {
+                cambioColor('.5s' , rojo , 'Fecha invalida')
+                $("#edad, #eEdad , #fNac , #efNac").css("color", rojo);
+            } else {
+                cambioColor('.5s' , obscuro , 'Programa de Ejemplo')
+                $("#edad, #eEdad , #fNac , #efNac").css("color", obscuro);
+            }
         },
         error:function(xhr,status){
             alert("Error en metodo AJAX"); 
@@ -259,9 +267,16 @@ function cambioColor(duracion , colorF , mensaje , colorL=blanco){
 }
 
 //Manipulacion de eventos con jquery
-$("#fNac , #efNac").change(function(){
+$("#fNac").change(function(){
     var fecha = $(this).val();
     edad(fecha);
+    ;
+});
+
+$("#efNac").change(function(){
+    var fecha = $(this).val();
+    edad(fecha);
+
 });
 
 $("#btnCancelarG , #btnCancelarA").click(function(){
@@ -344,9 +359,10 @@ function inputs(){
     $("#clave").keydown(function() {
         var valor=$(this).val();
         soloNumeros(valor);
+        
     });
 
-    $("#curp").keyup(function() {
+    $("#curp , #eCurp").keyup(function() {
 
         valor=$(this);
         // Convierte en mayuscula
@@ -357,11 +373,19 @@ function inputs(){
             //$("#btnGuardar").removeAttr('disabled');
             $(valor).css("color", obscuro);
             alertify.success("Curp valida !",1);
+            cambioColor('.5s' , azul , 'Programa de ejemplo')
         }else{
             //$("#btnGuardar").attr('disabled','disabled');
             $(valor).css("color", rojo);
+            cambioColor('.5s' , rojo , 'Curp no valida')
         }
 
+        
+    });
+
+    $("#clave").keyup(function(){
+        var valor=$(this).val();
+        revisar_clave(valor)
     });
 }
 //Manipulacion de eventos con jquery
@@ -426,13 +450,36 @@ function curpValida(valor) {
         validado = curp.match(re);
     
     if (!validado){  //Coincide con el formato general?
-        validador="No";
+        validador = "No";
     }else{
-        validador="Si";
+        validador = "Si";
     }
     return validador;
 }
 
+//Revisar clave repetida
+function revisar_clave(valor){
+    $.ajax({
+        url:"rClave.php",
+        type:"POST",
+        dateType:"html",
+        data:{valor},
+        success:function(respuesta){
+            res =parseInt(respuesta);
+            if (res!=1) {
+                $("#clave").css("color", obscuro);
+                cambioColor('.5s' , obscuro , 'Programa de ejemplo')
+            }else{
+                $("#clave").css("color", rojo);
+                cambioColor('.5s' , rojo , 'Clave repetida')
+            }
+        },
+        error:function(xhr,status){
+            alert("Error en metodo AJAX"); 
+        },
+    });
+
+}
 //llenar combo
 function combo_ecivil()
 {
@@ -446,7 +493,6 @@ function combo_ecivil()
             $("#ecivil , #eEcivil , #mEcivil").html(respuesta);    
             selectTwo();
         },
- 
         error : function(xhr, status) {
             alert('Disculpe, existió un problema');
         },
@@ -465,3 +511,4 @@ function nuevo_registro(){
     $("#guardar").fadeIn();
     $("#clave").focus();
 }
+
