@@ -3,6 +3,7 @@
 include'../conexion/conexionli.php';
 
 include ("../funciones/calcularEdad.php");
+include ("../funciones/fechaEspanol.php");
 
 $Id=$_REQUEST["id"];
 
@@ -41,6 +42,9 @@ $edad       = $row[6];
 $correo     = $row[7];
 $curp       = $row[8];
 
+$fecha=date("Y-m-d"); 
+
+$fCastellano=fechaCastellano($fecha);
 
  ?>
 
@@ -267,47 +271,12 @@ img{
             <strong>Padre , madre o tutor:</strong> <?php echo "$row[22]"; ?>
         </td>
     </tr> 
-    <tr >
-        <td  colspan="10" class="titular">
-            Datos escolares del Alumno
-        </td>
-    </tr>   
 
-    <tr >
-        <td  colspan="10" class="borde">
-            <strong>Carrera:</strong> <?php echo "$row[19]"; ?>
-        </td>
-    </tr> 
-
-    <tr >
-        <td  colspan="2" class="borde">
-            <strong>Matrícula:</strong> <?php echo "$row[1]"; ?>
-        </td>
-        <td  colspan="4" class="borde">
-            <strong>Grupo :</strong> <?php echo "$row[3]"; ?>
-        </td>
-        <td  colspan="4" class="borde">
-            <strong>Sede :</strong> <?php echo "$row[7]"; ?>
-        </td>
-    </tr> 
-    <tr >
-        <td  colspan="6" class="borde">
-            <strong>Preparatorio de egreso:</strong> <?php echo "$row[14]"; ?>
-        </td>
-        <td  colspan="6" class="borde">
-            <strong>Año de egreso del bachillerato :</strong> <?php echo "$row[15]"; ?>
-        </td>
-    </tr> 
-    <tr >
-        <td  colspan="10" class="borde">
-            Alumno regular el cual cursa el tetramestre <?php echo "$row[20]"; ?> ,dentro de las instalaciones de la Universidad Tecnológica Linares en la sede <?php echo "$row[7]"; ?> ,el cual se le ha sido asignado el tutor <?php echo "$row[21]"; ?>.
-        </td>
-    </tr>  
 
 
     <tr >
         <td  colspan="10" class="fecha">
-            <strong>Fecha de impresión:</strong> <?php echo "$fechai"; ?>
+            <strong>Fecha de impresión:</strong> <?php echo $fCastellano; ?>
         </td>
     </tr> 
 

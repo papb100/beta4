@@ -226,7 +226,7 @@
                                 </button>
                             </div>
                             <div class="col text-right">
-                                <button  type="submit" class="btn btn-outline-success  activo " id="btnActualizar">
+                                <button  type="submit" class="btn btn-outline-success  activo" id="btnActualizar">
                                     <i class='fa fa-bolt fa-lg'></i>
                                     Actualizar Información
                                 </button>

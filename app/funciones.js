@@ -380,12 +380,11 @@ function inputs(){
             cambioColor('.5s' , rojo , 'Curp no valida')
         }
 
-        
     });
 
     $("#clave").keyup(function(){
         var valor=$(this).val();
-        revisar_clave(valor)
+        revisar_clave(valor);
     });
 }
 //Manipulacion de eventos con jquery
@@ -466,19 +465,18 @@ function revisar_clave(valor){
         data:{valor},
         success:function(respuesta){
             res =parseInt(respuesta);
-            if (res!=1) {
+            if (res == 0) {
                 $("#clave").css("color", obscuro);
-                cambioColor('.5s' , obscuro , 'Programa de ejemplo')
+                cambioColor('.5s' , obscuro , 'Programa de ejemplo');
             }else{
                 $("#clave").css("color", rojo);
-                cambioColor('.5s' , rojo , 'Clave repetida')
+                cambioColor('.5s' , rojo , 'Clave repetida');
             }
         },
         error:function(xhr,status){
             alert("Error en metodo AJAX"); 
         },
     });
-
 }
 //llenar combo
 function combo_ecivil()
@@ -511,4 +509,3 @@ function nuevo_registro(){
     $("#guardar").fadeIn();
     $("#clave").focus();
 }
-
